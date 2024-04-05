@@ -38,7 +38,23 @@ void setup()
 void loop()
 {
 
+//Exercice 1
   uint32_t static V;
+  
+  V = analogRead(A2);
+  //Serial.println(V / 1240);
+
+  if (V >= 2481)
+  {
+    digitalWrite(D6, HIGH);
+  }
+  else
+  {
+    digitalWrite(D6, LOW);
+  }
+
+  //Exercice 2
+
   uint32_t static tempsActuel = 0;
   uint32_t static tempsEcoule = 0;
   uint32_t static tempsPrecedent = 0;
@@ -52,6 +68,8 @@ void loop()
   tempsEcoule = tempsActuel - tempsPrecedent;
   etatBouton = digitalRead(D4);
   
+
+
 
   if (tempsEcoule > INTERVALLE)
   {
@@ -75,15 +93,8 @@ void loop()
 
     tempsPrecedent = tempsActuel;
   }
-  V = analogRead(A2);
-  //Serial.println(V / 1240);
 
-  if (V >= 2481)
-  {
-    digitalWrite(D6, HIGH);
-  }
-  else
-  {
-    digitalWrite(D6, LOW);
-  }
+  //Exercice 3
+
+  Serial.readStringUntil(/n);
 }
