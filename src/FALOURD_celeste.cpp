@@ -39,9 +39,44 @@ void loop()
 {
 
   uint32_t static V;
+  uint32_t static tempsActuel = 0;
+  uint32_t static tempsEcoule = 0;
+  uint32_t static tempsPrecedent = 0;
+  uint32_t static cpt = 0;
+  uint32_t static timerActuel = 0;
+  uint32_t static timerEcoule = 0;
+  uint32_t static timerPrecedent = 0;
+  float timerNum;
+  bool etatBouton;
+  tempsActuel = millis();
+  tempsEcoule = tempsActuel - tempsPrecedent;
+  etatBouton = digitalRead(D4);
+  
 
+  if (tempsEcoule > INTERVALLE)
+  {
+    //Serial.println(etatBouton);
+    if (etatBouton == 0)
+    {
+      cpt = cpt + 1;
+      timerActuel = millis();
+    }
+    else
+    {
+      if (cpt != 0)
+      {
+        timerEcoule = timerActuel - timerPrecedent;
+        timerNum = timerEcoule/1000.00;
+        timerPrecedent = timerActuel;
+        Serial.print("temps depuis le dernier appui : ");
+        Serial.println(timerNum);
+      }
+    }
+
+    tempsPrecedent = tempsActuel;
+  }
   V = analogRead(A2);
-  Serial.println(V / 1240);
+  //Serial.println(V / 1240);
 
   if (V >= 2481)
   {
